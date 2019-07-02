@@ -1,0 +1,14 @@
+<h2>POST DEL GRUPO</h2>
+<div><a href="/posts/new">Nuevo post</a></div>
+<%@posts.each_with_index do |post, id|%>
+<div>
+  <%=id+1%>
+<%=post.description%>
+<a href="/posts/:id">ver</a>
+
+<form action="/posts/:id" method="post">
+  <input type="hidden" name="_method" value="delete">
+   <button type="submit">eliminar</button>
+</form>
+</div>
+<%end%>
