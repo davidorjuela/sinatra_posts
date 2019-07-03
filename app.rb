@@ -9,17 +9,19 @@ get '/posts' do
     erb :index
 end
 
-get '/users/:id' do
+get '/posts/new' do
+    #new
+    erb :new
+end
+
+get '/posts/:id' do
     #show
+    @post=Post.find(params[:id])
+    erb :show
 end
 
 get '/users/:id/delete' do
 
-end
-
-get '/posts/new' do
-    #new
-    erb :new
 end
 
 post '/posts' do
@@ -27,6 +29,15 @@ post '/posts' do
     Post.create(description:params[:description])
     @posts= Post.all
     erb :index
+end
+
+post '/posts/:id/comments' do
+    #create
+    comment=params[:comment]
+    #comment[:post_id]=params[:id]
+    Comment.create(comment)
+    p params
+    redirect "/posts/#{params[:id]}"
 end
 
 get '/users/:id/edit' do
@@ -42,8 +53,8 @@ patch '/users/' do
 end
 
 delete '/posts/:id' do
-    post = Post.find(params[:id])
+    post = Post.find_by(params[:id])
     post.destroy
     @posts= Post.all
-    redirect index
+    redirect '/posts'
 end

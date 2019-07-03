@@ -1,14 +1,21 @@
-<h2>POST DEL GRUPO</h2>
-<div><a href="/posts/new">Nuevo post</a></div>
-<%@posts.each_with_index do |post, id|%>
-<div>
-  <%=id+1%>
-<%=post.description%>
-<a href="/posts/:id">ver</a>
+<h2>POSTS DEL GRUPO</h2>
+<div class="container">
+  <div class="row justify-content-around">
+  <%@posts.each do |post|%>
 
-<form action="/posts/:id" method="post">
-  <input type="hidden" name="_method" value="delete">
-   <button type="submit">eliminar</button>
-</form>
+  <div class="card text-white bg-info mb-3 col-4" style="max-width: 18rem; margin-left: 5px">
+    <div class="card-header"><%=post.id%></div>
+      <div class="card-body"><%=post.description%></div>
+        <div class="card-footer container">
+          <div class="row justify-content-around">
+              <a href="/posts/<%=post.id%>" class="btn btn-dark">ver</a>
+              <form action="/posts/<%=post.id%>" method="post">
+                  <input type="hidden" name="_method" value="delete">
+                   <button type="submit" class="btn btn-dark">eliminar</button>
+              </form>
+          </div>
+        </div>
+  </div>
+  <%end%>
+  </div>
 </div>
-<%end%>
